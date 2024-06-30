@@ -1,0 +1,27 @@
+name: example
+description: "Steps example"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  steps:
+    path: ../
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/assets/01.png
+    - lib/assets/02.png
+    - lib/assets/03.png
+    - lib/assets/04.png
