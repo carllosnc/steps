@@ -1,4 +1,4 @@
-package cnc.steps_example.example
+package cnc.example
 
 import io.flutter.embedding.android.FlutterActivity
 
