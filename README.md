@@ -1,5 +1,7 @@
 # Steps
 
+[![Steps](https://github.com/carllosnc/steps/actions/workflows/dart.yml/badge.svg)](https://github.com/carllosnc/steps/actions/workflows/dart.yml)
+
 > A Flutter package that provides a simple way to create a step-based user interface.
 
 ```dart
