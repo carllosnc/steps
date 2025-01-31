@@ -1,38 +1,51 @@
 # Steps
 
-```dart
+> A Flutter package that provides a simple way to create a step-based user interface.
 
+```dart
 Scaffold(
   body: Center(
-    child: WelcomeSteps(
+    child: ManualSteps(
+      onExit: () {
+        Navigator.pushNamed(context, "home");
+      },
       screens: [
-        WelcomeScreen(
-          backgroundColor: Colors.red.shade600,
+        ManualScreen(
+          backgroundColor: Colors.deepPurple.shade600,
           content: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [ /* content */ ],
+            children: [
+              //...
+            ],
           ),
         ),
-        WelcomeScreen(
-          backgroundColor: Colors.red.shade700,
+        ManualScreen(
+          backgroundColor: Colors.deepPurple.shade700,
           content: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [ /* content */ ],
+            children: [
+              //...
+            ],
           ),
         ),
-        WelcomeScreen(
-          backgroundColor: Colors.red.shade800,
+        ManualScreen(
+          backgroundColor: Colors.deepPurple.shade800,
           content: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [ /* content */ ],
+            children: [
+              //...
+            ],
           ),
         )
       ],
     ),
   ),
 )
-
 ```
+
+---
+
+Carlos Costa @ 2025
