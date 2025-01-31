@@ -1,23 +1,51 @@
 import 'package:flutter/material.dart';
-import '/welcome_screen.dart';
+import 'manual_screen.dart';
 
-class WelcomeSteps extends StatefulWidget {
-  final List<WelcomeScreen> screens;
+class ManualSteps extends StatefulWidget {
+  final List<ManualScreen> screens;
   final Color backgroundColor;
+  final ButtonStyle? buttonStyle;
+  final Color? dotColor;
+  final Color? selectedDotColor;
+  final VoidCallback? onExit;
+  final Text exitText;
 
-  const WelcomeSteps({
+  const ManualSteps({
     super.key,
     required this.screens,
     this.backgroundColor = Colors.red,
+    this.buttonStyle,
+    this.dotColor,
+    this.selectedDotColor,
+    this.onExit,
+    this.exitText = const Text("Exit"),
   });
 
   @override
-  State<WelcomeSteps> createState() => _WelcomeStepsState();
+  State<ManualSteps> createState() => _ManualStepsState();
 }
 
-class _WelcomeStepsState extends State<WelcomeSteps> {
+class _ManualStepsState extends State<ManualSteps> {
   PageController? _controller;
   int _currentPage = 0;
+
+  ButtonStyle getButtonStyle() {
+    ButtonStyle currentStyle = widget.buttonStyle ??
+        FilledButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        );
+
+    return currentStyle;
+  }
+
+  Color getDotColor() {
+    return widget.dotColor ?? Colors.white;
+  }
+
+  Color getSelectedDotColor() {
+    return widget.selectedDotColor ?? Colors.black;
+  }
 
   @override
   void initState() {
@@ -32,9 +60,15 @@ class _WelcomeStepsState extends State<WelcomeSteps> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.screens.length < 2) {
+      throw Exception("ManualSteps must have at least 2 screens");
+    }
+
     return Stack(
+      key: const Key("manual-steps-stack"),
       children: [
         Positioned(
+          key: const Key("manual-steps-items"),
           child: Container(
             color: widget.backgroundColor,
             child: PageView(
@@ -46,6 +80,7 @@ class _WelcomeStepsState extends State<WelcomeSteps> {
           ),
         ),
         Positioned(
+          key: const Key("manual-steps-controls"),
           bottom: 0,
           left: 0,
           child: Container(
@@ -60,13 +95,12 @@ class _WelcomeStepsState extends State<WelcomeSteps> {
                   children: [
                     for (var index = 0; index < widget.screens.length; index++)
                       Container(
+                        key: Key("manual-steps-dot-$index"),
                         width: 8,
                         height: 8,
                         margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                         decoration: BoxDecoration(
-                          color: _currentPage == index
-                              ? Colors.white
-                              : Colors.white.withOpacity(0.3),
+                          color: _currentPage == index ? getDotColor() : getSelectedDotColor(),
                           borderRadius: BorderRadius.circular(100),
                         ),
                       ),
@@ -79,9 +113,7 @@ class _WelcomeStepsState extends State<WelcomeSteps> {
                       child: IconButton.filled(
                         icon: const Icon(Icons.chevron_left),
                         color: Colors.black,
-                        style: IconButton.styleFrom(
-                          backgroundColor: Colors.white,
-                        ),
+                        style: getButtonStyle(),
                         onPressed: () {
                           _controller!.previousPage(
                             duration: const Duration(milliseconds: 300),
@@ -93,13 +125,9 @@ class _WelcomeStepsState extends State<WelcomeSteps> {
                     const SizedBox(width: 10),
                     if (!(_currentPage == widget.screens.length - 1))
                       Opacity(
-                        opacity:
-                            _currentPage == widget.screens.length - 1 ? 0.3 : 1,
+                        opacity: _currentPage == widget.screens.length - 1 ? 0.3 : 1,
                         child: IconButton.filled(
-                          style: IconButton.styleFrom(
-                            backgroundColor: Colors.white,
-                          ),
-                          color: Colors.black,
+                          style: getButtonStyle(),
                           icon: const Icon(Icons.chevron_right),
                           onPressed: () {
                             _controller!.nextPage(
@@ -111,14 +139,9 @@ class _WelcomeStepsState extends State<WelcomeSteps> {
                       ),
                     if (_currentPage == widget.screens.length - 1)
                       FilledButton(
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/login');
-                        },
-                        child: const Text('Enter'),
+                        style: getButtonStyle(),
+                        onPressed: widget.onExit ?? () => {},
+                        child: widget.exitText,
                       ),
                   ],
                 ),
