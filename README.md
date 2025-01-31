@@ -4,6 +4,10 @@
 
 > A Flutter package that provides a simple way to create a step-based user interface.
 
+<img src="steps-example.gif" width="200">
+
+## Usage
+
 ```dart
 Scaffold(
   body: Center(
@@ -13,7 +17,7 @@ Scaffold(
       },
       screens: [
         ManualScreen(
-          backgroundColor: Colors.deepPurple.shade600,
+          backgroundColor: Colors.red.shade600,
           content: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -23,7 +27,7 @@ Scaffold(
           ),
         ),
         ManualScreen(
-          backgroundColor: Colors.deepPurple.shade700,
+          backgroundColor: Colors.red.shade700,
           content: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,7 +37,7 @@ Scaffold(
           ),
         ),
         ManualScreen(
-          backgroundColor: Colors.deepPurple.shade800,
+          backgroundColor: Colors.red.shade800,
           content: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +51,6 @@ Scaffold(
   ),
 )
 ```
-
 ---
 
 Carlos Costa @ 2025
